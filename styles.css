@@ -1,0 +1,149 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    /* max-width: 800px; */
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    /* border-radius: 15px; */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    background-color: #000000; /* A more vibrant red color */
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    border-radius: 0px;
+}
+
+header h1 {
+    font-size: 2.5em;
+}
+
+.chatbox {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.messages {
+    flex-grow: 1;
+    margin-bottom: 20px;
+}
+
+.messages .message {
+    margin-bottom: 10px;
+    padding: 12px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    max-width: 80%;
+}
+
+.messages .user {
+    background-color: #E0F7FA; /* Light blue for user messages */
+    align-self: flex-end;
+}
+
+.messages .bot {
+    background-color: #FFEBEE; /* Light pink for bot messages */
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+#micBtn, #sendBtn {
+    padding: 12px;
+    background-color: #000000; /* Matching the header color */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 10px;
+    display: flex; /* Use flex to center the image */
+    justify-content: center; /* Center the image */
+    align-items: center; /* Vertically center the image */
+}
+
+#micBtn img, #sendBtn img {
+    width: 22px; /* Make the image fill the button container */
+    height: 22px; /* Make the image fill the button container */
+    object-fit: contain; /* Preserve aspect ratio and fit the image inside */
+}
+
+
+input[type="text"] {
+    padding: 12px;
+    width: calc(100% - 110px);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1.2em;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+footer {
+    padding: 10px;
+    text-align: center;
+}
+
+footer button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #000000;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+footer button:hover {
+    background-color: #ffffff; 
+}
+
+#imageBtn {
+    padding: 12px;
+    background-color: #000000; /* Matching the send button color */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#imageBtn img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Style for the image in the message */
+.image-message {
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-top: 10px;
+}
