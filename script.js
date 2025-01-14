@@ -44,8 +44,7 @@ function addMessage(message, sender) {
 }
 
 function sendMessageToBackend(message) {
-    // Replace with your backend integration
-    // Example: Fetch API to call your backend
+   
     // fetch('/api/chat', {
     //     method: 'POST',
     //     headers: {
@@ -56,11 +55,10 @@ function sendMessageToBackend(message) {
     // .then(response => response.json())
     // .then(data => addMessage(data.reply, 'bot'));
 
-    // For now, simulate bot response
     setTimeout(() => {
         const botReply = 'This is a bot reply to: ' + message;
         addMessage(botReply, 'bot');
-    }, 1000);  // Simulate a 1-second delay
+    }, 1000); 
 }
 
 function scrollToBottom() {
@@ -68,7 +66,6 @@ function scrollToBottom() {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
-// Speech recognition functionality
 function startSpeechRecognition() {
     const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
     recognition.lang = 'en-US';
