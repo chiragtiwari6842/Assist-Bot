@@ -8,13 +8,15 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <div class="container">
         <header>
             <h1>Assist Bot</h1>
         </header>
-
+    
         <div class="chatbox">
             <div class="messages" id="messages"></div>
+    
             <div class="input-container">
                 <button id="micBtn" class="mic-btn">
                     <img src="assets/mic-icon.png" alt="Microphone" />
@@ -24,13 +26,21 @@
                 <button id="imageBtn" class="image-btn">
                     <img src="assets/image-icon.png" alt="Image" />
                 </button>
+    
                 <button id="sendBtn" class="send-btn">
                     <img src="assets/send-icon.png" alt="Send">
                 </button>
             </div>
         </div>
     </div>
+    <div id="micModal" class="mic-modal">
+        <div class="mic-modal-content">
+            <span class="mic-close">&times;</span>
+            <p>Sorry, this feature is currently unavailable.</p>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.min.js"></script>
+    <script src="script.js"></script> 
 
-    <script src="script.js"></script>
 </body>
 </html>
