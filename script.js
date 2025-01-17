@@ -82,16 +82,30 @@ function removeThinkingAnimation() {
 function addMessage(message, sender) {
     const messageElement = document.createElement('div');
     messageElement.classList.add('message', sender);
-    
+
     if (message instanceof HTMLImageElement) {
-        messageElement.appendChild(message);  
+        if (message.src) {
+            messageElement.appendChild(message); 
+        } else {
+            console.log("Invalid image element provided. Skipping message.");
+            return; 
+        }
+    } else if (typeof message === 'string' && message.trim() !== '') {
+        try {
+            messageElement.innerHTML = marked.parse(message); 
+        } catch (error) {
+            console.log("Error parsing text message:", error);
+            return; 
+        }
     } else {
-        messageElement.innerHTML = marked.parse(message);  
+        console.log("Empty or invalid message provided. Skipping message.");
+        return; 
     }
     
     messagesContainer.appendChild(messageElement);
     scrollToBottom();
 }
+
 
 function scrollToBottom() {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -169,12 +183,8 @@ micBtn.addEventListener('click', async() => {
                 recordedAudioBlob = new Blob(audioChunks, { type: 'audio/wav'});
                 audioChunks = [];
                 micImg.src = 'assets/mic-icon.png';
-
                 micBtn.classList.remove("recording");
-
-                //showLoading();  //write this
                 await processAudio(recordedAudioBlob); 
-                //hideLoading(); //write this
             };
             mediaRecorder.start();
             micBtn.classList.add("recording");
@@ -186,12 +196,10 @@ micBtn.addEventListener('click', async() => {
 })
 
 async function processAudio(blob) {
+
     showThinkingAnimation();
     const formData = new FormData();
     formData.append("file", new File([blob], "recorded_audio.wav"));
-
-    // const contextJson = JSON.stringify(context);
-    // formData.append("context", contextJson);
 
     try {
         const response = await fetch("https://brief-auroora-anuraguniversity-530bb9d7.koyeb.app/process-audio/", {
@@ -225,8 +233,7 @@ async function getRightAPI(userPrompt) {
         return;
     }
     try {
-        // const response = await fetch('https://yammering-kristin-personalorgani-f2f18d5f.koyeb.app/api/main', {
-        const response = await fetch("http://172.16.3.15:5000/api/main", {
+        const response = await fetch('https://yammering-kristin-personalorgani-f2f18d5f.koyeb.app/api/main', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -249,21 +256,23 @@ async function getRightAPI(userPrompt) {
         }
 
         const data = await response.json();
-        // console.log(data); 
 
         let reply;
         if (data.replyImage) {
-            reply = data.replyImage;
-            console.log("Reply is an image URL:", reply);
+            const imageElement = document.createElement('img');
+            imageElement.src = data.replyImage;
+            imageElement.alt = 'Reply Image'; 
+            imageElement.style.display = "block";
+            
+            addMessage(imageElement, 'bot');
         } else {
             reply = data.reply;
-            // console.log("Reply is text:", reply);
         }
 
         removeThinkingAnimation();
         context.push({ 'user': userPrompt, 'response': reply });
-        console.log(context);
         addMessage(reply, "bot");
+        scrollToBottom();
 
     } catch (error) {
         console.error('Error fetching or parsing data:', error);
